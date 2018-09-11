@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "Robot.h"
 #include "JuegoRobotGameModeBase.generated.h"
 
 /**
@@ -14,7 +15,12 @@ class JUEGOROBOT_API AJuegoRobotGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
-	
+public:
+
+	AJuegoRobotGameModeBase();
+
+	AJuegoRobotGameModeBase(const FObjectInitializer & ObjectInitializer);
+
 	
 	
 };

@@ -33,6 +33,25 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="JuegoRobot")
 	UStaticMeshComponent *Cuerpo;
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
 	UStaticMeshComponent *Cabeza;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+	UStaticMeshComponent *ManoDerecha;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+	UStaticMeshComponent *ManoIzquierda;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+	UStaticMeshComponent *PieDerecho;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+	UStaticMeshComponent *PieIzquierdo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+		UCameraComponent *Camara;
+
+
 };
+
