@@ -9,8 +9,9 @@ AJuegoRobotGameModeBase::AJuegoRobotGameModeBase()
 
 	
 	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("Class'/Script/JuegoRobot.JuegoRobotGameModeBase'")); //en C++ 
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/GameModes/JuegoRobotGameModeBaseBP.JuegoRobotGameModeBaseBP_C'"));
-
+	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/GameModes/JuegoRobotGameModeBas//eBP.JuegoRobotGameModeBaseBP_C'"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/Pawns/RobotBP.RobotBP_C'"));
+	                                                                                 
 	if (PlayerPawnClass.Class != NULL)
 	{
 
@@ -26,7 +27,8 @@ AJuegoRobotGameModeBase::AJuegoRobotGameModeBase(const FObjectInitializer & Obje
 
 
 	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("Class'/Script/JuegoRobot.JuegoRobotGameModeBase'")); //en C++ 
-	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/GameModes/JuegoRobotGameModeBaseBP.JuegoRobotGameModeBaseBP_C'"));
+	//static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/GameModes/JuegoRobotGameModeBaseBP.JuegoRobotGameModeBaseBP_C'"));
+	static ConstructorHelpers::FClassFinder<APawn> PlayerPawnClass(TEXT("BlueprintGeneratedClass'/Game/JuegoRobot/Blueprints/Pawns/RobotBP.RobotBP_C'"));
 
 	if (PlayerPawnClass.Class != NULL)
 	{

@@ -52,6 +52,27 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
 		UCameraComponent *Camara;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+		float Velocidad;
+
+	FVector Movimiento;
+	void MoveForward(float AxisValue);
+	void MoveRight(float AxisValue);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+	float DistanceCamera;
+	void RotatePitch(float AxisValue);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+	float VelocidadCorrer;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+	float VelocidadCaminar;
+
+	void Caminar();
+	void Correr();
+
+
 
 };
 
