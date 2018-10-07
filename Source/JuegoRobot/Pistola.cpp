@@ -5,6 +5,7 @@
 #include "Engine/StaticMesh.h"
 #include "Materials/Material.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/Engine.h"
 
 
 // Sets default values
@@ -58,6 +59,12 @@ APistola::APistola()
 	Colision->SetupAttachment(RootComponent);
 	Colision->InitBoxExtent(FVector(0.25f));
 
+	static ConstructorHelpers::FClassFinder<AProyectil> ProyectilClass(TEXT("Class'/Script/JuegoRobot.BalaLaser'"));
+	if (ProyectilClass.Succeeded()) // Comprobando que el material haya sido encontrado
+	{
+		TipoProyectil = ProyectilClass.Class;
+
+	}
 }
 
 // Called when the game starts or when spawned
@@ -79,6 +86,42 @@ void APistola::Sujetar_Implementation(USceneComponent * Holder)
 	AttachToComponent(Holder, FAttachmentTransformRules::KeepRelativeTransform);
 	SetActorRelativeLocation(FVector(0.0f));
 	SetActorRelativeRotation(FRotator(0.0f));
+
+
+}
+
+void APistola::AccionPressed_Implementation()
+{
+	Disparar();
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("Disparar"));
+	}
+
+
+}
+
+void APistola::Disparar()
+{
+
+	UWorld * const World = GetWorld();
+	if (World)
+	{
+
+		FActorSpawnParameters SpawnParameters;
+		SpawnParameters.Owner = this;
+		SpawnParameters.Instigator = Instigator;
+		SpawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		FVector SpawnLocation = PuntoDisparo->GetComponentLocation();
+		FRotator SpawnRotator = PuntoDisparo->GetComponentRotation();
+		AProyectil * Proyectil = World->SpawnActor<AProyectil>(TipoProyectil, SpawnLocation, SpawnRotator, SpawnParameters);
+		if (Proyectil)
+		{
+			Proyectil->Disparar();
+		}
+	}
+
+
 
 
 }

@@ -8,7 +8,9 @@
 #include "Components/BoxComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Pistola.h"
 #include "Robot.generated.h"
+
 
 
 UCLASS()
@@ -52,6 +54,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
 		UCameraComponent *Camara;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "JuegoRobot")
+		UBoxComponent *Colision;
+
+
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
 		float Velocidad;
 
@@ -71,7 +78,16 @@ public:
 
 	void Caminar();
 	void Correr();
+	void DispararPressed();
+	void DispararReleased();
 
+	UFUNCTION()
+	void OnBeginOverlapColision(UPrimitiveComponent * OverlapedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+
+	UFUNCTION()
+	void OnEndOverlapColision(UPrimitiveComponent * OverlapedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex);
+	
+	APistola * Pistola;
 
 
 };

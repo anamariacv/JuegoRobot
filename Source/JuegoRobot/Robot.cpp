@@ -6,6 +6,7 @@
 #include "Materials/Material.h"
 #include "Components/InputComponent.h"
 #include "Engine/Engine.h"
+#include  "ArmaInterface.h"
 
 
 // Sets default values
@@ -58,6 +59,13 @@ ARobot::ARobot()
 	Camara->SetRelativeLocation(FVector(-350.0f, 0.0f, 425.0f));
 	Camara->SetRelativeRotation(FRotator(-30.0f, 0.0f, 0.0f));
 
+
+	Colision = CreateDefaultSubobject<UBoxComponent>(TEXT("Colision"));
+	Colision->SetupAttachment(RootComponent);
+	Colision->SetRelativeLocation(FVector(0.0f, 0.0f, 110.0f));
+	Colision->InitBoxExtent(FVector(40.0f, 60.0f, 110.0f));
+	Colision->OnComponentBeginOverlap.AddDynamic(this, &ARobot::OnBeginOverlapColision);
+	Colision->OnComponentEndOverlap.AddDynamic(this, &ARobot::OnEndOverlapColision);
 
 
 
@@ -135,7 +143,8 @@ void ARobot::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	InputComponent->BindAxis("RotatePitch", this, &ARobot::RotatePitch);
 	InputComponent->BindAction("Correr", IE_Pressed, this, &ARobot::Correr);
 	InputComponent->BindAction("Correr", IE_Released, this, &ARobot::Caminar);
-
+	InputComponent->BindAction("Disparar", IE_Pressed, this, &ARobot::DispararPressed);
+	InputComponent->BindAction("Disparar", IE_Released, this, &ARobot::DispararReleased);
 }
 
 void ARobot::MoveForward(float AxisValue)
@@ -183,5 +192,54 @@ void ARobot::Correr()
 	}
 
 	Velocidad = VelocidadCorrer;
+}
+
+void ARobot::DispararPressed()
+{
+	if (Pistola)
+	{
+		IArmaInterface::Execute_AccionPressed(Pistola);
+		
+	}
+
+}
+
+void ARobot::DispararReleased()
+{
+}
+
+void ARobot::OnBeginOverlapColision(UPrimitiveComponent * OverlapedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 2.0f, FColor::Blue, TEXT("OverlapColisionArma"));
+	}
+
+	IArmaInterface* Arma = Cast<IArmaInterface>(OtherActor);
+
+	if (Arma && !OtherActor->IsPendingKill())
+	{
+		Pistola = Cast<APistola>(OtherActor);
+		
+		if (Pistola) 
+		{
+			IArmaInterface::Execute_Sujetar(OtherActor,ManoDerecha);
+		
+		
+		}
+
+
+	}
+
+
+}
+
+void ARobot::OnEndOverlapColision(UPrimitiveComponent * OverlapedComponent, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
+{
+
+
+
+
 }
 

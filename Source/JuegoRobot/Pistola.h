@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "ArmaInterface.h"
+#include "Proyectil.h"
 #include "Pistola.generated.h"
 
 
@@ -26,6 +27,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 	virtual void Sujetar_Implementation(USceneComponent * Holder) override;
+	virtual void AccionPressed_Implementation() override;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
 	UStaticMeshComponent *Mesh;
@@ -39,6 +41,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
 	USceneComponent *PuntoDisparo;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "JuegoRobot")
+		TSubclassOf<AProyectil> TipoProyectil;
+
+	UFUNCTION(BlueprintCallable, Category = "JuegoRobot")
+	void Disparar();
 
 	
 };
